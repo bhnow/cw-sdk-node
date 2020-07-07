@@ -227,9 +227,10 @@ export class RESTClient {
    * @param pairSymbol string (Example: 'btcusd')
    * @see https://cryptowat.ch/docs/api#market-ohlc
    */
-  async getOHLC(exchangeSymbol: string, pairSymbol: string): Promise<MarketOHLC> {
+  async getOHLC(exchangeSymbol: string, pairSymbol: string, params?: { [key: string]: string }): Promise<MarketOHLC> {
     return await this.getRestData<MarketOHLCRaw>(
-      `/markets/${exchangeSymbol}/${pairSymbol}/ohlc`
+      `/markets/${exchangeSymbol}/${pairSymbol}/ohlc`,
+      params
     ).then<MarketOHLC>((marketOHLC) => {
       const result: Partial<MarketOHLC> = {};
       for (const key in marketOHLC) {
